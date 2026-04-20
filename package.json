@@ -1,0 +1,10 @@
+{
+  "name": "cypress-demo",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "cypress": "^15.14.0",
+    "typescript": "^5.9.3"
+  }
+}
