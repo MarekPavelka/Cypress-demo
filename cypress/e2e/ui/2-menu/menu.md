@@ -22,14 +22,13 @@ Spec file: `cypress/e2e/2-menu/menu.spec.ts`
 | MNU-001 | Open burger menu from inventory page | High | Side menu opens after clicking top-left burger button |
 | MNU-002 | Close menu with X button | High | Side menu closes and inventory page remains visible |
 | MNU-003 | Menu shows expected options | High | `All Items`, `About`, `Logout`, `Reset App State` are visible |
-| MNU-004 | Click `All Items` from inventory | Medium | User stays/returns to inventory page (`/inventory.html`) |
+| MNU-004 | Click `All Items` from invetory item page (`inventory-item.html`) | Medium | User returns to inventory page (`/inventory.html`) |
 | MNU-005 | Click `About` | Medium | User is redirected to Sauce Labs page (`https://saucelabs.com/`) |
 | MNU-006 | Click `Logout` | High | User is redirected to login page (`/`) and session is ended |
-| MNU-007 | After logout, protected page cannot be accessed | High | Visiting `/inventory.html` redirects to login page |
-| MNU-008 | Re-login after logout works | High | Login again with `standard_user` succeeds and opens inventory |
-| MNU-009 | Click `Reset App State` with modified cart state | High | Cart state is cleared (badge removed / count reset) |
-| MNU-010 | `Reset App State` does not log out user | Medium | User remains authenticated on inventory page |
-| MNU-011 | Menu can be opened/closed repeatedly | Medium | No UI break; menu behavior remains stable across multiple toggles |
+| MNU-007 | Re-login after logout works | High | Login again with `standard_user` succeeds and opens inventory |
+| MNU-008 | Click `Reset App State` with modified cart state | High | Cart state is cleared (badge removed / count reset) |
+| MNU-009 | `Reset App State` does not log out user | Medium | User remains authenticated on inventory page |
+| MNU-010 | Menu can be opened/closed repeatedly | Medium | No UI break; menu behavior remains stable across multiple toggles |
 
 ---
 
@@ -47,6 +46,6 @@ Spec file: `cypress/e2e/2-menu/menu.spec.ts`
 ## Automation Scope
 
 1. `MNU-001`, `MNU-002`, `MNU-003`
-2. `MNU-006`, `MNU-007`, `MNU-008`
-3. `MNU-009`, `MNU-010`
-4. `MNU-005`
+2. `MNU-005`
+3. `MNU-006`, `MNU-007`
+4. `MNU-008`, `MNU-009`
