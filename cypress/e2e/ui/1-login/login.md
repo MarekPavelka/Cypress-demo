@@ -58,6 +58,6 @@ Spec file: `cypress/e2e/1-login/login.spec.ts`
 ## Automation Scope
 
 1. `LGN-001`, `LGN-002`
-2. `LGN-008`, `LGN-009`, `LGN-010`
-3. `LGN-005`, `LGN-006`, `LGN-007`
+2. `LGN-005`, `LGN-006`, `LGN-007`
+3. `LGN-008`, `LGN-009`, `LGN-010`
 4. `LGN-SES-001`

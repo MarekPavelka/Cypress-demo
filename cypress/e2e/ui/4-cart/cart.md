@@ -55,7 +55,7 @@ Spec file: `cypress/e2e/4-cart/cart.spec.ts`
 
 ---
 
-## Suggested First Automation Scope
+## Automation Scope
 
 1. `CRT-002`, `CRT-003`, `CRT-004`, `CRT-005`, `CRT-006`
 2. `CRT-007`, `CRT-008`, `CRT-010`
