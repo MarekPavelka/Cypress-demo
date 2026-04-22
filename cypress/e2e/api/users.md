@@ -15,13 +15,13 @@ Spec file: `cypress/e2e/api/users.spec.ts`
 
 ## Functional Scenarios
 
-| ID           | Scenario                                        | Priority | Expected Result                                                                 |
-| ------------ | ----------------------------------------------- | -------- | ------------------------------------------------------------------------------- |
-| API-GET-001  | GET users from first page (`GET /users?page=1`) | High     | Status `200`, total exists, first name and last name exists, data is valid      |
-| API-GET-002  | GET users from all pages                        | High     | Status `200` on each page, merged user count matches total, user IDs are unique |
-| API-POST-001 | Create user (`POST /users`)                     | High     | Status `201`, returns id and created time, response contains payload data       |
-| API-PUT-001  | Update user (`PUT /users/1`)                    | High     | Status `200`, returns updated name, job, and valid updated time                 |
-| API-DEL-001  | Delete user (`DELETE /users/1`)                 | High     | Status `204`, response body is empty                                            |
+| ID           | Scenario                                 | Priority | Expected Result                                                                 |
+| ------------ | ---------------------------------------- | -------- | ------------------------------------------------------------------------------- |
+| API-GET-001  | GET users from first page (`GET /users`) | High     | Status `200`, total exists, first name and last name exists, data is valid      |
+| API-GET-002  | GET users from all pages                 | High     | Status `200` on each page, merged user count matches total, user IDs are unique |
+| API-POST-001 | Create user (`POST /users`)              | High     | Status `201`, returns id and created time, response contains payload data       |
+| API-PUT-001  | Update user (`PUT /users/1`)             | High     | Status `200`, returns updated name, job, and valid updated time                 |
+| API-DEL-001  | Delete user (`DELETE /users/1`)          | High     | Status `204`, response body is empty                                            |
 
 ---
 

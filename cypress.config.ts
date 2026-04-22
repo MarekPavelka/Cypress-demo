@@ -6,6 +6,9 @@ export default defineConfig({
   viewportHeight: 720,
   video: false,
   screenshotOnRunFailure: false,
+  expose: {
+    reqresApiUrl: 'https://reqres.in/api/',
+  },
   e2e: {
     baseUrl: 'https://www.saucedemo.com/',
     specPattern: [
