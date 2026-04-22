@@ -29,14 +29,7 @@ export class CheckoutPage {
 
   // #region Actions
 
-  clearStepOne(): void {
-    this.getFirstNameInput().clear();
-    this.getLastNameInput().clear();
-    this.getPostalCodeInput().clear();
-  }
-
   fillStepOne(firstName: string, lastName: string, postalCode: string): void {
-    this.clearStepOne();
     if (firstName.length > 0) {
       this.getFirstNameInput().type(firstName);
     }
@@ -139,15 +132,15 @@ export class CheckoutPage {
   }
 
   /**
-   * Parses the currency amount after the colon.
-   * @param text - e.g. 'Item total: $12.34'.
+   * Parses the currency amount.
+   * @param text - e.g. 'Item total: $12.34' or '$12.34'.
    * @returns - 12.34, or 0 if no match.
    */
   private parseCurrencyAmount(text: string): number {
-    const numberAfterColonRegex = /:\s*[^0-9]*([0-9]+(?:\.[0-9]+)?)/;
-    const match = text.match(numberAfterColonRegex);
+    const priceRegex = /\d+(?:[.,]\d+)?/;
+    const match = text.match(priceRegex);
     if (match) {
-      return parseFloat(match[1]);
+      return parseFloat(match[0]);
     }
 
     return 0;

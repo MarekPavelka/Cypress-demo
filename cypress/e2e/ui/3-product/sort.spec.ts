@@ -5,15 +5,10 @@ import { ROUTES } from '../../../support/routes';
 import { InventorySortOption } from '../../../pages/home.page';
 
 describe('Product sorting test suite', () => {
-  const loginPage = pom.getLoginPage();
   const homePage = pom.getHomePage();
-  const username = '';
-  const password = '';
 
   beforeEach(() => {
-    cy.visit('/');
-    loginPage.login(username, password);
-    cy.url().should('include', ROUTES.inventory);
+    cy.loginUi();
   });
 
   describe('Sorting availability and default value', () => {

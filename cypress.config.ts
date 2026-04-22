@@ -18,7 +18,9 @@ export default defineConfig({
       'cypress/e2e/api/**/*.{js,ts}',
     ],
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      config.env.username = process.env.USER_NAME;
+      config.env.password = process.env.PASSWORD;
+      return config;
     },
   },
 });

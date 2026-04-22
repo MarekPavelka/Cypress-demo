@@ -10,8 +10,6 @@ describe('Checkout test suite', () => {
   const cartPage = pom.getCartPage();
   const checkoutPage = pom.getCheckoutPage();
   const checkoutUser = { firstName: 'Marek', lastName: 'Pavelka', postalCode: '99888' };
-  const username = '';
-  const password = '';
 
   const addProductsToCartAndStartCheckout = (productCount: number): void => {
     for (let index = 0; index < productCount; index++) {
@@ -24,9 +22,7 @@ describe('Checkout test suite', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/');
-    loginPage.login(username, password);
-    cy.url().should('include', ROUTES.inventory);
+    cy.loginUi();
   });
 
   describe('Checkout step-one start', () => {

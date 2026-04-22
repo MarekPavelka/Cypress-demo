@@ -1,37 +1,49 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+import { LoginPage } from '../pages/login.page';
+import { ROUTES } from './routes';
+
+const SESSION_LOGIN_COOKIE = 'session-username';
+
+Cypress.Commands.add('loginUi', (): void => {
+  cy.session(
+    'standard_user',
+    () => {
+      cy.env(['username', 'password']).then((credentials) => {
+        const username = (credentials.username as string) ?? '';
+        const password = (credentials.password as string) ?? '';
+        const loginPage = new LoginPage();
+        cy.visit('/');
+        loginPage.login(username, password);
+        cy.url().should('include', ROUTES.inventory);
+        cy.getCookie(SESSION_LOGIN_COOKIE).its('value').should('eq', username);
+      });
+    },
+    { cacheAcrossSpecs: true },
+  );
+
+  cy.visit(ROUTES.inventory, { failOnStatusCode: false });
+  cy.url().should('include', ROUTES.inventory);
+});
+
+Cypress.Commands.add('loginWithEnvCredentials', (): void => {
+  const loginPage = new LoginPage();
+  cy.env(['username', 'password']).then((credentials) => {
+    const user = (credentials.username as string) ?? '';
+    const pass = (credentials.password as string) ?? '';
+    loginPage.login(user, pass);
+    cy.url().should('include', ROUTES.inventory);
+    cy.getCookie(SESSION_LOGIN_COOKIE).its('value').should('eq', user);
+  });
+});
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      loginUi(): void;
+      loginWithEnvCredentials(): void;
+    }
+  }
+}
+
+export {};

@@ -5,10 +5,18 @@ import { ROUTES } from '../../../support/routes';
 
 describe('Login test suite', () => {
   const loginPage = pom.getLoginPage();
-  const username = '';
-  const password = '';
   const wrongUsername = 'wrong_user';
   const wrongPassword = 'wrong_password';
+
+  let username: string;
+  let password: string;
+
+  before(() => {
+    cy.env(['username', 'password']).then((credentials) => {
+      username = credentials.username ?? '';
+      password = credentials.password ?? '';
+    });
+  });
 
   beforeEach(() => {
     cy.visit('/');

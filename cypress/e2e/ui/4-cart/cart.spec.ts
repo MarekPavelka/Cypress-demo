@@ -4,17 +4,12 @@ import { pom } from '../../../support/pageManager';
 import { ROUTES } from '../../../support/routes';
 
 describe('Cart test suite', () => {
-  const loginPage = pom.getLoginPage();
   const headerPage = pom.getHeaderPage();
   const homePage = pom.getHomePage();
   const cartPage = pom.getCartPage();
-  const username = '';
-  const password = '';
 
   beforeEach(() => {
-    cy.visit('/');
-    loginPage.login(username, password);
-    cy.url().should('include', ROUTES.inventory);
+    cy.loginUi();
   });
 
   describe('Cart functionality on Inventory page (add/delete) and cart badge behavior', () => {

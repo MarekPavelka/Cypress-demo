@@ -7,13 +7,9 @@ describe('Menu test suite', () => {
   const loginPage = pom.getLoginPage();
   const headerPage = pom.getHeaderPage();
   const homePage = pom.getHomePage();
-  const username = ''
-  const password = '';
 
   beforeEach(() => {
-    cy.visit('/');
-    loginPage.login(username, password);
-    cy.url().should('include', ROUTES.inventory);
+    cy.loginUi();
   });
 
   describe('Menu open/close and menu items availability', () => {
@@ -70,7 +66,7 @@ describe('Menu test suite', () => {
     it('MNU-007: should allow logging in again after logout', () => {
       headerPage.openMenu();
       headerPage.getMenuLogoutAnchor().click();
-      loginPage.login(username, password);
+      cy.loginWithEnvCredentials();
       cy.url().should('include', ROUTES.inventory);
     });
   });
