@@ -1,3 +1,5 @@
+import { parsePriceText } from '../support/helpers';
+
 export enum InventorySortOption {
   AtoZ = 'az',
   ZtoA = 'za',
@@ -70,7 +72,7 @@ export class HomePage {
 
   expectProductPricesSortedAscending(): void {
     this.getProductPrices().then(($prices) => {
-      const values = $prices.toArray().map((el) => parseFloat(el.innerText.replace(/[^0-9.]/g, '')));
+      const values = $prices.toArray().map((el) => parsePriceText(el.innerText));
       const sorted = [...values].sort((a, b) => a - b);
       expect(values).to.deep.equal(sorted);
     });
@@ -78,7 +80,7 @@ export class HomePage {
 
   expectProductPricesSortedDescending(): void {
     this.getProductPrices().then(($prices) => {
-      const values = $prices.toArray().map((el) => parseFloat(el.innerText.replace(/[^0-9.]/g, '')));
+      const values = $prices.toArray().map((el) => parsePriceText(el.innerText));
       const sorted = [...values].sort((a, b) => b - a);
       expect(values).to.deep.equal(sorted);
     });

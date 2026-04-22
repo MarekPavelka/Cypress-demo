@@ -1,3 +1,7 @@
+import { parsePriceText } from '../support/helpers';
+
+const PRICE_FLOAT_PRECISION = 0.02;
+
 export class CheckoutPage {
   // #region Getters
 
@@ -66,12 +70,12 @@ export class CheckoutPage {
 
   expectStepTwoSubtotalToMatchCartItemsSum(): void {
     this.getStepTwoItemPrices().then(($prices) => {
-      const itemsPriceSum = $prices.toArray().reduce((acc, el) => acc + this.parseCurrencyAmount(el.innerText), 0);
+      const itemsPriceSum = $prices.toArray().reduce((acc, el) => acc + parsePriceText(el.innerText), 0);
       this.getSubtotal()
         .invoke('text')
         .then((subtotalTxt) => {
-          const subtotal = this.parseCurrencyAmount(subtotalTxt);
-          expect(itemsPriceSum).to.be.closeTo(subtotal, 0.02);
+          const subtotal = parsePriceText(subtotalTxt);
+          expect(itemsPriceSum).to.be.closeTo(subtotal, PRICE_FLOAT_PRECISION);
         });
     });
   }
@@ -80,16 +84,16 @@ export class CheckoutPage {
     this.getSubtotal()
       .invoke('text')
       .then((subtotalTxt) => {
-        const subtotal = this.parseCurrencyAmount(subtotalTxt);
+        const subtotal = parsePriceText(subtotalTxt);
         this.getTax()
           .invoke('text')
           .then((taxTxt) => {
-            const tax = this.parseCurrencyAmount(taxTxt);
+            const tax = parsePriceText(taxTxt);
             this.getTotal()
               .invoke('text')
               .then((totalText) => {
-                const total = this.parseCurrencyAmount(totalText);
-                expect(total).to.be.closeTo(subtotal + tax, 0.02);
+                const total = parsePriceText(totalText);
+                expect(total).to.be.closeTo(subtotal + tax, PRICE_FLOAT_PRECISION);
               });
           });
       });
@@ -129,21 +133,6 @@ export class CheckoutPage {
 
   private getBackToProductsButton(): Cypress.Chainable<JQuery<HTMLElement>> {
     return cy.get('[data-test="back-to-products"]');
-  }
-
-  /**
-   * Parses the currency amount.
-   * @param text - e.g. 'Item total: $12.34' or '$12.34'.
-   * @returns - 12.34, or 0 if no match.
-   */
-  private parseCurrencyAmount(text: string): number {
-    const priceRegex = /\d+(?:[.,]\d+)?/;
-    const match = text.match(priceRegex);
-    if (match) {
-      return parseFloat(match[0]);
-    }
-
-    return 0;
   }
 
   // #endregion
