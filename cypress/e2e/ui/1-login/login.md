@@ -8,6 +8,7 @@ Spec file: `cypress/e2e/1-login/login.spec.ts`
 
 ## Test Data
 
+- Environment variables: `USER_NAME`, `PASSWORD`
 - Valid user: `standard_user`
 - Performance user: `performance_glitch_user`
 - Locked user: `locked_out_user`

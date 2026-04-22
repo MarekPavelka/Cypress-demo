@@ -6,11 +6,14 @@ Spec file: `cypress/e2e/4-cart/cart.spec.ts`
 
 ---
 
+## Test Data
+
+- Environment variables: `USER_NAME`, `PASSWORD`
+
 ## Precondition
 
 - Navigate to SUT
-- Login with:
-  - Username: `standard_user`
+- Login with `standard_user`  
 - Confirm user lands on inventory page (`/inventory.html`)
 
 ---
