@@ -1,4 +1,4 @@
-import { parsePriceText } from '../support/helpers';
+import { parsePriceText } from '../support/ui/helpers/parsers';
 
 const PRICE_FLOAT_PRECISION = 0.02;
 

@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-import { pom } from '../../../support/pageManager';
-import { UI_ROUTES } from '../../../support/routes';
+import { pom } from '../../../support/ui/pageManager';
+import { UI_ROUTES } from '../../../support/ui/routes';
 
 describe('Login test suite', () => {
   const loginPage = pom.getLoginPage();

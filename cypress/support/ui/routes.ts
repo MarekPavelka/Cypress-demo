@@ -5,7 +5,3 @@ export const UI_ROUTES = {
   checkoutStepTwo: '/checkout-step-two.html',
   checkoutComplete: '/checkout-complete.html',
 } as const;
-
-export const API_ENDPOINTS = {
-  users: '/users/',
-} as const;

@@ -1,14 +1,14 @@
 /// <reference types="cypress" />
 
-import { pom } from '../../../support/pageManager';
-import { UI_ROUTES } from '../../../support/routes';
+import { pom } from '../../../support/ui/pageManager';
+import { UI_ROUTES } from '../../../support/ui/routes';
 import { InventorySortOption } from '../../../pages/home.page';
 
 describe('Product sorting test suite', () => {
   const homePage = pom.getHomePage();
 
   beforeEach(() => {
-    cy.loginUi();
+    cy.uiLogin();
   });
 
   describe('Sorting availability and default value', () => {

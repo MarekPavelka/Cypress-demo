@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-import { API_ENDPOINTS } from '../../../support/routes';
-import { expectSchema } from '../../../support/schema';
-import * as api from '../../../support/api';
+import { API_ENDPOINTS } from '../../../support/api/endpoints';
+import { expectSchema } from '../../../support/api/schema';
+import * as httpClient from '../../../support/api/httpClient';
 import * as usersSchemas from './users.schemas';
 
 const USERS_FIXTURE = 'api-users.json';
@@ -28,9 +28,9 @@ describe('ReqRes API test suite', () => {
     it('API-GET-001: should return users with valid structure and total number', () => {
       const usersUrl = `${apiUrl}${API_ENDPOINTS.users}`;
 
-      api.request(api.httpMethod.GET, usersUrl, apiKey).then((response) => {
+      httpClient.request(httpClient.method.GET, usersUrl, apiKey).then((response) => {
         expect(response.status).to.eq(200);
-        const resBody = expectSchema(usersSchemas.getUsersResponseSchema, response.body, api.requestLabel(api.httpMethod.GET, usersUrl));
+        const resBody = expectSchema(usersSchemas.getUsersResponseSchema, response.body, httpClient.requestLabel(httpClient.method.GET, usersUrl));
 
         expect(resBody.data[0].last_name).not.be.empty;
         expect(resBody.data[1].last_name).not.be.empty;
@@ -45,9 +45,9 @@ describe('ReqRes API test suite', () => {
       let totalPages = 0;
       let usersPerPage = 0;
 
-      api.request(api.httpMethod.GET, usersUrl, apiKey).then((response) => {
+      httpClient.request(httpClient.method.GET, usersUrl, apiKey).then((response) => {
         expect(response.status).to.eq(200);
-        const firstResBody = expectSchema(usersSchemas.getUsersResponseSchema, response.body, api.requestLabel(api.httpMethod.GET, usersUrl));
+        const firstResBody = expectSchema(usersSchemas.getUsersResponseSchema, response.body, httpClient.requestLabel(httpClient.method.GET, usersUrl));
 
         usersPerPage = firstResBody.per_page;
         totalUsers = firstResBody.total;
@@ -57,9 +57,9 @@ describe('ReqRes API test suite', () => {
         for (let page = 2; page <= totalPages; page++) {
           const usersPageUrl = `${apiUrl}${API_ENDPOINTS.users}?page=${page}`;
 
-          api.request(api.httpMethod.GET, usersPageUrl, apiKey).then((pageResponse) => {
+          httpClient.request(httpClient.method.GET, usersPageUrl, apiKey).then((pageResponse) => {
             expect(pageResponse.status).to.eq(200);
-            const resBody = expectSchema(usersSchemas.getUsersResponseSchema, pageResponse.body, api.requestLabel(api.httpMethod.GET, usersPageUrl));
+            const resBody = expectSchema(usersSchemas.getUsersResponseSchema, pageResponse.body, httpClient.requestLabel(httpClient.method.GET, usersPageUrl));
 
             expect(resBody.data.length).to.be.at.most(usersPerPage);
             allUsers.push(...resBody.data);
@@ -84,9 +84,9 @@ describe('ReqRes API test suite', () => {
     it('API-POST-001: should create user from fixture and validate response status code and body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];
-      api.request(api.httpMethod.POST, url, apiKey, userPayload).then((response) => {
+      httpClient.request(httpClient.method.POST, url, apiKey, userPayload).then((response) => {
         expect(response.status).to.eq(201);
-        const body = expectSchema(usersSchemas.createUserResponseSchema, response.body, api.requestLabel(api.httpMethod.POST, url));
+        const body = expectSchema(usersSchemas.createUserResponseSchema, response.body, httpClient.requestLabel(httpClient.method.POST, url));
 
         expect(body.name).to.eq(userPayload.name);
         expect(body.job).to.eq(userPayload.job);
@@ -99,9 +99,9 @@ describe('ReqRes API test suite', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
       const userPayload = testUsers[0];
 
-      api.request(api.httpMethod.PUT, url, apiKey, userPayload).then((response) => {
+      httpClient.request(httpClient.method.PUT, url, apiKey, userPayload).then((response) => {
         expect(response.status).to.eq(200);
-        const body = expectSchema(usersSchemas.updateUserResponseSchema, response.body, api.requestLabel(api.httpMethod.PUT, url));
+        const body = expectSchema(usersSchemas.updateUserResponseSchema, response.body, httpClient.requestLabel(httpClient.method.PUT, url));
 
         expect(body.name).to.eq(userPayload.name);
         expect(body.job).to.eq(userPayload.job);
@@ -113,7 +113,7 @@ describe('ReqRes API test suite', () => {
     it('API-DELETE-001: should delete user, validate response status code and empty body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
 
-      api.request(api.httpMethod.DELETE, url, apiKey).then((response) => {
+      httpClient.request(httpClient.method.DELETE, url, apiKey).then((response) => {
         expect(response.status).to.eq(204);
         expect(response.body).to.be.oneOf([undefined, null, '']);
       });
@@ -125,7 +125,7 @@ describe('ReqRes API test suite', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];
 
-      api.request(api.httpMethod.POST, url, apiKey, userPayload).then((response) => {
+      httpClient.request(httpClient.method.POST, url, apiKey, userPayload).then((response) => {
         expect(response.status).to.eq(201);
         expect(response.duration).to.be.lessThan(MAX_RESPONSE_TIME_MS);
       });
@@ -135,7 +135,7 @@ describe('ReqRes API test suite', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
       const userPayload = testUsers[0];
 
-      api.request(api.httpMethod.PUT, url, apiKey, userPayload).then((response) => {
+      httpClient.request(httpClient.method.PUT, url, apiKey, userPayload).then((response) => {
         expect(response.status).to.eq(200);
         expect(response.duration).to.be.lessThan(MAX_RESPONSE_TIME_MS);
       });
@@ -144,7 +144,7 @@ describe('ReqRes API test suite', () => {
     it('API-PERF-DEL-001: should delete user response under 1000ms', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
 
-      api.request(api.httpMethod.DELETE, url, apiKey).then((response) => {
+      httpClient.request(httpClient.method.DELETE, url, apiKey).then((response) => {
         expect(response.status).to.eq(204);
         expect(response.duration).to.be.lessThan(MAX_RESPONSE_TIME_MS);
       });

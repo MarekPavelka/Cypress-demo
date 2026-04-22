@@ -1,8 +1,8 @@
-import { LoginPage } from '../pages/login.page';
-import { HeaderPage } from '../pages/header.page';
-import { HomePage } from '../pages/home.page';
-import { CartPage } from '../pages/cart.page';
-import { CheckoutPage } from '../pages/checkout.page';
+import { LoginPage } from '../../pages/login.page';
+import { HeaderPage } from '../../pages/header.page';
+import { HomePage } from '../../pages/home.page';
+import { CartPage } from '../../pages/cart.page';
+import { CheckoutPage } from '../../pages/checkout.page';
 
 class PageManager {
   private readonly loginPage: LoginPage;

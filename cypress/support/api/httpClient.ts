@@ -1,6 +1,6 @@
 const API_KEY_HEADER = 'x-api-key';
 
-export const httpMethod = {
+export const method = {
   GET: 'GET',
   POST: 'POST',
   PUT: 'PUT',
@@ -8,7 +8,7 @@ export const httpMethod = {
   PATCH: 'PATCH',
 } as const;
 
-export type HttpMethod = (typeof httpMethod)[keyof typeof httpMethod];
+export type HttpMethod = (typeof method)[keyof typeof method];
 
 export function request(httpMethod: HttpMethod, url: string, apiKey?: string, body?: Cypress.RequestBody) {
   const requestHeaders: Cypress.RequestOptions['headers'] = {};

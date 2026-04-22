@@ -1,4 +1,4 @@
-import { parsePriceText } from '../support/helpers';
+import { parsePriceText } from '../support/ui/helpers/parsers';
 
 export enum InventorySortOption {
   AtoZ = 'az',

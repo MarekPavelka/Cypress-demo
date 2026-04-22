@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-import { pom } from '../../../support/pageManager';
-import { UI_ROUTES } from '../../../support/routes';
+import { pom } from '../../../support/ui/pageManager';
+import { UI_ROUTES } from '../../../support/ui/routes';
 
 describe('Checkout test suite', () => {
   const loginPage = pom.getLoginPage();
@@ -9,7 +9,7 @@ describe('Checkout test suite', () => {
   const homePage = pom.getHomePage();
   const cartPage = pom.getCartPage();
   const checkoutPage = pom.getCheckoutPage();
-  const checkoutUser = { firstName: 'Marek', lastName: 'Pavelka', postalCode: '99888' };
+  const checkoutUser = { firstName: 'Yoel', lastName: 'Romero', postalCode: '99888' };
 
   const addProductsToCartAndStartCheckout = (productCount: number): void => {
     for (let index = 0; index < productCount; index++) {
@@ -22,7 +22,7 @@ describe('Checkout test suite', () => {
   };
 
   beforeEach(() => {
-    cy.loginUi();
+    cy.uiLogin();
   });
 
   describe('Checkout step-one start', () => {

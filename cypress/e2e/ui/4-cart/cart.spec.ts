@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-import { pom } from '../../../support/pageManager';
-import { UI_ROUTES } from '../../../support/routes';
+import { pom } from '../../../support/ui/pageManager';
+import { UI_ROUTES } from '../../../support/ui/routes';
 
 describe('Cart test suite', () => {
   const headerPage = pom.getHeaderPage();
@@ -9,7 +9,7 @@ describe('Cart test suite', () => {
   const cartPage = pom.getCartPage();
 
   beforeEach(() => {
-    cy.loginUi();
+    cy.uiLogin();
   });
 
   describe('Cart functionality on Inventory page (add/delete) and cart badge behavior', () => {

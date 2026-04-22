@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-import { pom } from '../../../support/pageManager';
-import { UI_ROUTES } from '../../../support/routes';
+import { pom } from '../../../support/ui/pageManager';
+import { UI_ROUTES } from '../../../support/ui/routes';
 
 describe('Menu test suite', () => {
   const loginPage = pom.getLoginPage();
@@ -9,7 +9,7 @@ describe('Menu test suite', () => {
   const homePage = pom.getHomePage();
 
   beforeEach(() => {
-    cy.loginUi();
+    cy.uiLogin();
   });
 
   describe('Menu open/close and menu items availability', () => {
@@ -66,7 +66,7 @@ describe('Menu test suite', () => {
     it('MNU-007: should allow logging in again after logout', () => {
       headerPage.openMenu();
       headerPage.getMenuLogoutAnchor().click();
-      cy.loginWithEnvCredentials();
+      cy.uiLoginWithEnvCredentials();
       cy.url().should('include', UI_ROUTES.inventory);
     });
   });
