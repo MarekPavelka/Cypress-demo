@@ -10,7 +10,7 @@ export const method = {
 
 export type HttpMethod = (typeof method)[keyof typeof method];
 
-export function request(httpMethod: HttpMethod, url: string, apiKey?: string, body?: Cypress.RequestBody) {
+export function request(httpMethod: HttpMethod, url: string, apiKey?: string, body?: Cypress.RequestBody): Cypress.Chainable<Cypress.Response<any>> {
   const requestHeaders: Cypress.RequestOptions['headers'] = {};
   const wasApiKeyProvided = apiKey && apiKey.trim() !== '';
   if (wasApiKeyProvided) {

@@ -21,6 +21,9 @@ export default defineConfig({
       'cypress/e2e/api/**/*.spec.{js,ts}',
     ],
     setupNodeEvents(on, config) {
+      const { plugin: cypressGrepPlugin } = require('@cypress/grep/plugin');
+      cypressGrepPlugin(config);
+
       config.env.username = process.env.USER_NAME;
       config.env.password = process.env.PASSWORD;
       config.env.reqresApiKey = process.env.REQRES_API_KEY;

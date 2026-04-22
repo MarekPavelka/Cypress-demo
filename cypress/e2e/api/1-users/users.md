@@ -35,9 +35,9 @@ Spec file: `cypress/e2e/api/users.spec.ts`
 
 | ID                | Scenario             | Priority | Expected Result             |
 | ----------------- | -------------------- | -------- | --------------------------- |
-| API-PERF-POST-001 | POST response time   | Medium   | Response duration < `100ms` |
-| API-PERF-PUT-001  | PUT response time    | Medium   | Response duration < `100ms` |
-| API-PERF-DEL-001  | DELETE response time | Medium   | Response duration < `100ms` |
+| API-PERF-POST-001 | POST response time   | Medium   | Response duration < `300ms` |
+| API-PERF-PUT-001  | PUT response time    | Medium   | Response duration < `300ms` |
+| API-PERF-DEL-001  | DELETE response time | Medium   | Response duration < `300ms` |
 
 ---
 

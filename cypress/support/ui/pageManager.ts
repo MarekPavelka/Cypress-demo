@@ -19,23 +19,23 @@ class PageManager {
     this.checkoutPage = new CheckoutPage();
   }
 
-  getLoginPage() {
+  getLoginPage(): LoginPage {
     return this.loginPage;
   }
 
-  getHeaderPage() {
+  getHeaderPage(): HeaderPage {
     return this.headerPage;
   }
 
-  getHomePage() {
+  getHomePage(): HomePage {
     return this.homePage;
   }
 
-  getCartPage() {
+  getCartPage(): CartPage {
     return this.cartPage;
   }
 
-  getCheckoutPage() {
+  getCheckoutPage(): CheckoutPage {
     return this.checkoutPage;
   }
 }

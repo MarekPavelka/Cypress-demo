@@ -4,7 +4,7 @@ import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 import { InventorySortOption } from '../../../pages/home.page';
 
-describe('Product sorting test suite', () => {
+describe('Product sorting test suite', { tags: '@ui' }, () => {
   const homePage = pom.getHomePage();
 
   beforeEach(() => {

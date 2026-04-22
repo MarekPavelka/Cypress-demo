@@ -3,7 +3,7 @@
 import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 
-describe('Menu test suite', () => {
+describe('Menu test suite', { tags: '@ui' }, () => {
   const loginPage = pom.getLoginPage();
   const headerPage = pom.getHeaderPage();
   const homePage = pom.getHomePage();

@@ -3,7 +3,7 @@
 import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 
-describe('Cart test suite', () => {
+describe('Cart test suite', { tags: '@ui' }, () => {
   const headerPage = pom.getHeaderPage();
   const homePage = pom.getHomePage();
   const cartPage = pom.getCartPage();

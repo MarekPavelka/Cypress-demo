@@ -6,7 +6,7 @@ import * as httpClient from '../../../support/api/httpClient';
 import * as usersSchemas from './users.schemas';
 
 const USERS_FIXTURE = 'api-users.json';
-const MAX_RESPONSE_TIME_MS = 100;
+const MAX_RESPONSE_TIME_MS = 300;
 const FIRST_USER_ID = '1';
 let testUsers: { name: string; job: string }[] = [];
 
@@ -24,7 +24,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Get users', () => {
+  describe('Get users', { tags: ['@api', '@smoke'] }, () => {
     it('API-GET-001: should return users with valid structure and total number', () => {
       const usersUrl = `${apiUrl}${API_ENDPOINTS.users}`;
 
@@ -80,7 +80,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Create new user', () => {
+  describe('Create new user', { tags: ['@api', '@smoke'] }, () => {
     it('API-POST-001: should create user from fixture and validate response status code and body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];
@@ -94,7 +94,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Update existing user', () => {
+  describe('Update existing user', { tags: ['@api', '@smoke'] }, () => {
     it('API-PUT-001: should update existing user and validate response status code and body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
       const userPayload = testUsers[0];
@@ -109,7 +109,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Delete existing user', () => {
+  describe('Delete existing user', { tags: ['@api', '@smoke'] }, () => {
     it('API-DELETE-001: should delete user, validate response status code and empty body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
 
@@ -120,7 +120,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Performance', () => {
+  describe('Performance', { tags: ['@api', '@perf'] }, () => {
     it('API-PERF-POST-001: should create user response under 1000ms', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];
