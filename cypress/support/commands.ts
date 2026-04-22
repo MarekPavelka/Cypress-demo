@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { LoginPage } from '../pages/login.page';
-import { ROUTES } from './routes';
+import { UI_ROUTES } from './routes';
 
 const SESSION_LOGIN_COOKIE = 'session-username';
 
@@ -15,15 +15,15 @@ Cypress.Commands.add('loginUi', (): void => {
         const loginPage = new LoginPage();
         cy.visit('/');
         loginPage.login(username, password);
-        cy.url().should('include', ROUTES.inventory);
+        cy.url().should('include', UI_ROUTES.inventory);
         cy.getCookie(SESSION_LOGIN_COOKIE).its('value').should('eq', username);
       });
     },
     { cacheAcrossSpecs: true },
   );
 
-  cy.visit(ROUTES.inventory, { failOnStatusCode: false });
-  cy.url().should('include', ROUTES.inventory);
+  cy.visit(UI_ROUTES.inventory, { failOnStatusCode: false });
+  cy.url().should('include', UI_ROUTES.inventory);
 });
 
 Cypress.Commands.add('loginWithEnvCredentials', (): void => {
@@ -32,7 +32,7 @@ Cypress.Commands.add('loginWithEnvCredentials', (): void => {
     const user = (credentials.username as string) ?? '';
     const pass = (credentials.password as string) ?? '';
     loginPage.login(user, pass);
-    cy.url().should('include', ROUTES.inventory);
+    cy.url().should('include', UI_ROUTES.inventory);
     cy.getCookie(SESSION_LOGIN_COOKIE).its('value').should('eq', user);
   });
 });

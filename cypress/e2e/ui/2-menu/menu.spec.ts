@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { pom } from '../../../support/pageManager';
-import { ROUTES } from '../../../support/routes';
+import { UI_ROUTES } from '../../../support/routes';
 
 describe('Menu test suite', () => {
   const loginPage = pom.getLoginPage();
@@ -25,7 +25,7 @@ describe('Menu test suite', () => {
       headerPage.openMenu();
       headerPage.getCloseMenuButton().should('be.visible').click();
       headerPage.getAllMenuAnchors().should('not.be.visible');
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
       headerPage.getOpenMenuButton().should('be.visible');
     });
 
@@ -58,7 +58,7 @@ describe('Menu test suite', () => {
     it('MNU-006: should log out and return to the login page', () => {
       headerPage.openMenu();
       headerPage.getMenuLogoutAnchor().click();
-      cy.url().should('not.include', ROUTES.inventory);
+      cy.url().should('not.include', UI_ROUTES.inventory);
       loginPage.getUsernameInput().should('be.visible');
       loginPage.getLoginButton().should('be.visible');
     });
@@ -67,7 +67,7 @@ describe('Menu test suite', () => {
       headerPage.openMenu();
       headerPage.getMenuLogoutAnchor().click();
       cy.loginWithEnvCredentials();
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
     });
   });
 
@@ -82,7 +82,7 @@ describe('Menu test suite', () => {
     it('MNU-009: should keep the user logged in after Reset App State', () => {
       homePage.addFirstProductToCart();
       headerPage.resetAppState();
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
       headerPage.getCloseMenuButton().should('be.visible');
       headerPage.getMenuLogoutAnchor().should('be.visible');
     });

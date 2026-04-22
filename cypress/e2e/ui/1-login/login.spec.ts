@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { pom } from '../../../support/pageManager';
-import { ROUTES } from '../../../support/routes';
+import { UI_ROUTES } from '../../../support/routes';
 
 describe('Login test suite', () => {
   const loginPage = pom.getLoginPage();
@@ -31,7 +31,7 @@ describe('Login test suite', () => {
 
     it('LGN-002: should log in with valid credentials and open inventory page', () => {
       loginPage.login(username, password);
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
     });
   });
 
@@ -41,19 +41,19 @@ describe('Login test suite', () => {
     it('LGN-005: should reject invalid username with valid password', () => {
       loginPage.login(wrongUsername, password);
       loginPage.getErrorMessage().should('be.visible').and('contain.text', errTxt);
-      cy.url().should('not.include', ROUTES.inventory);
+      cy.url().should('not.include', UI_ROUTES.inventory);
     });
 
     it('LGN-006: should reject valid username with invalid password', () => {
       loginPage.login(username, wrongPassword);
       loginPage.getErrorMessage().should('be.visible').and('contain.text', errTxt);
-      cy.url().should('not.include', ROUTES.inventory);
+      cy.url().should('not.include', UI_ROUTES.inventory);
     });
 
     it('LGN-007: should reject invalid username and invalid password', () => {
       loginPage.login(wrongUsername, wrongPassword);
       loginPage.getErrorMessage().should('be.visible').and('contain.text', errTxt);
-      cy.url().should('not.include', ROUTES.inventory);
+      cy.url().should('not.include', UI_ROUTES.inventory);
     });
   });
 
@@ -81,18 +81,18 @@ describe('Login test suite', () => {
   });
 
   describe('Access inventory page without successful login', () => {
-    const errText = `You can only access '${ROUTES.inventory}' when you are logged in.`;
+    const errText = `You can only access '${UI_ROUTES.inventory}' when you are logged in.`;
 
     it('LGN-SES-001: should not allow direct inventory access without a session', () => {
       const baseUrl = Cypress.config('baseUrl') as string;
 
       cy.request(baseUrl).then((response) => {
-        cy.intercept('GET', `**/${ROUTES.inventory}`, {
+        cy.intercept('GET', `**/${UI_ROUTES.inventory}`, {
           statusCode: 200,
           body: response.body,
           headers: { 'content-type': 'text/html; charset=utf-8' },
         });
-        cy.visit(ROUTES.inventory);
+        cy.visit(UI_ROUTES.inventory);
       });
       loginPage.getUsernameInput().should('be.visible');
       loginPage.getLoginButton().should('be.visible');

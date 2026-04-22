@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
+const INVALID_DATETIME = 'Invalid datetime string';
+
 export const reqresUserSchema = z.object({
-  id: z.union([z.number(), z.string().min(1)]), // id string fallback
+  id: z.union([z.number(), z.string().min(1)]), // user ID string fallback
   email: z.email(),
   first_name: z.string(),
   last_name: z.string(),
@@ -19,14 +21,18 @@ export const getUsersResponseSchema = z.object({
 export const createUserResponseSchema = z.object({
   name: z.string().min(1),
   job: z.string().min(1),
-  id: z.union([z.string().min(1), z.number()]), // id number fallback
-  createdAt: z.string().min(1),
+  id: z.union([z.string().min(1), z.number()]), // user ID number fallback
+  createdAt: z.string().refine((value) => Number.isFinite(Date.parse(value)), {
+    message: INVALID_DATETIME, // custom validation message on top of the base schema
+  }),
 });
 
 export const updateUserResponseSchema = z.object({
   name: z.string().min(1),
   job: z.string().min(1),
-  updatedAt: z.string().min(1),
+  updatedAt: z.string().refine((value) => Number.isFinite(Date.parse(value)), {
+    message: INVALID_DATETIME, // custom validation message on top of the base schema
+  }),
 });
 
 export type ReqresUser = z.infer<typeof reqresUserSchema>;

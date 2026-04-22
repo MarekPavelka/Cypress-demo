@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { pom } from '../../../support/pageManager';
-import { ROUTES } from '../../../support/routes';
+import { UI_ROUTES } from '../../../support/routes';
 
 describe('Cart test suite', () => {
   const headerPage = pom.getHeaderPage();
@@ -52,7 +52,7 @@ describe('Cart test suite', () => {
       homePage.addProductToCart(0);
       homePage.addProductToCart(1);
       headerPage.openCart();
-      cy.url().should('include', ROUTES.cart);
+      cy.url().should('include', UI_ROUTES.cart);
       cartPage.getCartItemRows().should('have.length', 2);
       cartPage.getCartItemNames().should('have.length', 2);
       cartPage.getCartItemNames().each(($el) => {
@@ -74,9 +74,9 @@ describe('Cart test suite', () => {
       homePage.addProductToCart(1);
       headerPage.getCartBadge().should('have.text', '2');
       headerPage.openCart();
-      cy.url().should('include', ROUTES.cart);
+      cy.url().should('include', UI_ROUTES.cart);
       cartPage.continueShopping();
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
       headerPage.getCartBadge().should('have.text', '2');
       homePage.getAllRemoveFromCartButtons().should('have.length', 2);
     });
@@ -98,7 +98,7 @@ describe('Cart test suite', () => {
       homePage.addProductToCart(0);
       headerPage.getCartBadge().should('have.text', '1');
       cy.reload();
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
       headerPage.getCartBadge().should('have.text', '1');
       homePage.getProductRemoveFromCartButton(0).should('be.visible');
     });
@@ -107,10 +107,10 @@ describe('Cart test suite', () => {
       homePage.addProductToCart(0);
       homePage.addProductToCart(1);
       headerPage.openCart();
-      cy.url().should('include', ROUTES.cart);
+      cy.url().should('include', UI_ROUTES.cart);
       cartPage.getCartItemRows().should('have.length', 2);
       cy.reload();
-      cy.url().should('include', ROUTES.cart);
+      cy.url().should('include', UI_ROUTES.cart);
       cartPage.getCartItemRows().should('have.length', 2);
       headerPage.getCartBadge().should('have.text', '2');
     });

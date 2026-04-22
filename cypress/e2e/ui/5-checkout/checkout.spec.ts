@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { pom } from '../../../support/pageManager';
-import { ROUTES } from '../../../support/routes';
+import { UI_ROUTES } from '../../../support/routes';
 
 describe('Checkout test suite', () => {
   const loginPage = pom.getLoginPage();
@@ -16,9 +16,9 @@ describe('Checkout test suite', () => {
       homePage.addProductToCart(index);
     }
     headerPage.openCart();
-    cy.url().should('include', ROUTES.cart);
+    cy.url().should('include', UI_ROUTES.cart);
     cartPage.startCheckout();
-    cy.url().should('include', ROUTES.checkoutStepOne);
+    cy.url().should('include', UI_ROUTES.checkoutStepOne);
   };
 
   beforeEach(() => {
@@ -52,34 +52,34 @@ describe('Checkout test suite', () => {
     it('CHK-004: should block step-one submit when all fields are empty', () => {
       checkoutPage.submitStepOne();
       checkoutPage.getErrorMessage().should('be.visible').and('contain.text', firstNameErrTxt);
-      cy.url().should('include', ROUTES.checkoutStepOne);
+      cy.url().should('include', UI_ROUTES.checkoutStepOne);
     });
 
     it('CHK-005: should require first name on step-one', () => {
       checkoutPage.fillStepOne('', checkoutUser.lastName, checkoutUser.postalCode);
       checkoutPage.submitStepOne();
       checkoutPage.getErrorMessage().should('be.visible').and('contain.text', firstNameErrTxt);
-      cy.url().should('include', ROUTES.checkoutStepOne);
+      cy.url().should('include', UI_ROUTES.checkoutStepOne);
     });
 
     it('CHK-006: should require last name on step-one', () => {
       checkoutPage.fillStepOne(checkoutUser.firstName, '', checkoutUser.postalCode);
       checkoutPage.submitStepOne();
       checkoutPage.getErrorMessage().should('be.visible').and('contain.text', lastNameErrTxt);
-      cy.url().should('include', ROUTES.checkoutStepOne);
+      cy.url().should('include', UI_ROUTES.checkoutStepOne);
     });
 
     it('CHK-007: should require postal code on step-one', () => {
       checkoutPage.fillStepOne(checkoutUser.firstName, checkoutUser.lastName, '');
       checkoutPage.submitStepOne();
       checkoutPage.getErrorMessage().should('be.visible').and('contain.text', postalCodeErrTxt);
-      cy.url().should('include', ROUTES.checkoutStepOne);
+      cy.url().should('include', UI_ROUTES.checkoutStepOne);
     });
 
     it('CHK-008: should continue to step-two with valid personal information', () => {
       checkoutPage.fillStepOne(checkoutUser.firstName, checkoutUser.lastName, checkoutUser.postalCode);
       checkoutPage.submitStepOne();
-      cy.url().should('include', ROUTES.checkoutStepTwo);
+      cy.url().should('include', UI_ROUTES.checkoutStepTwo);
       checkoutPage.getFinishButton().should('be.visible');
     });
   });
@@ -89,7 +89,7 @@ describe('Checkout test suite', () => {
       addProductsToCartAndStartCheckout(2);
       checkoutPage.fillStepOne(checkoutUser.firstName, checkoutUser.lastName, checkoutUser.postalCode);
       checkoutPage.submitStepOne();
-      cy.url().should('include', ROUTES.checkoutStepTwo);
+      cy.url().should('include', UI_ROUTES.checkoutStepTwo);
     });
 
     it('CHK-010: should list only products from step-one on step-two', () => {
@@ -113,7 +113,7 @@ describe('Checkout test suite', () => {
       checkoutPage.fillStepOne(checkoutUser.firstName, checkoutUser.lastName, checkoutUser.postalCode);
       checkoutPage.submitStepOne();
       checkoutPage.finishOrder();
-      cy.url().should('include', ROUTES.checkoutComplete);
+      cy.url().should('include', UI_ROUTES.checkoutComplete);
     });
 
     it('CHK-014: should show a thank you message after completing the order', () => {
@@ -132,7 +132,7 @@ describe('Checkout test suite', () => {
       checkoutPage.submitStepOne();
       checkoutPage.finishOrder();
       checkoutPage.clickBackHome();
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
     });
 
     it('CHK-016: should clear the cart badge after a successful order', () => {
@@ -144,7 +144,7 @@ describe('Checkout test suite', () => {
       checkoutPage.submitStepOne();
       checkoutPage.finishOrder();
       checkoutPage.clickBackHome();
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
       headerPage.getCartBadge().should('not.exist');
     });
   });

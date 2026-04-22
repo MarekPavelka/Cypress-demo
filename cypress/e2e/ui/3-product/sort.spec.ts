@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { pom } from '../../../support/pageManager';
-import { ROUTES } from '../../../support/routes';
+import { UI_ROUTES } from '../../../support/routes';
 import { InventorySortOption } from '../../../pages/home.page';
 
 describe('Product sorting test suite', () => {
@@ -70,7 +70,7 @@ describe('Product sorting test suite', () => {
       homePage.selectSort(InventorySortOption.HighToLow);
       homePage.expectProductPricesSortedDescending();
       cy.reload();
-      cy.url().should('include', ROUTES.inventory);
+      cy.url().should('include', UI_ROUTES.inventory);
       homePage.expectProductNamesSortedAscending();
     });
   });
