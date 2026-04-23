@@ -8,7 +8,7 @@ describe('Product sorting test suite', { tags: ['@ui'] }, () => {
   const homePage = pom.getHomePage();
 
   beforeEach(() => {
-    cy.uiLogin();
+    cy.loginUiSession();
   });
 
   describe('Sorting availability and default value', { tags: ['@smoke'] }, () => {

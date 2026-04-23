@@ -9,7 +9,7 @@ describe('Menu test suite', { tags: ['@ui'] }, () => {
   const homePage = pom.getHomePage();
 
   beforeEach(() => {
-    cy.uiLogin();
+    cy.loginUiSession();
   });
 
   describe('Menu open/close and menu items availability', { tags: ['@smoke'] }, () => {
@@ -66,7 +66,7 @@ describe('Menu test suite', { tags: ['@ui'] }, () => {
     it('MNU-007: should allow logging in again after logout', () => {
       headerPage.openMenu();
       headerPage.getMenuLogoutAnchor().click();
-      cy.uiLoginWithEnvCredentials();
+      cy.loginUiFresh();
       cy.url().should('include', UI_ROUTES.inventory);
     });
   });

@@ -9,7 +9,7 @@ describe('Cart test suite', { tags: ['@ui'] }, () => {
   const cartPage = pom.getCartPage();
 
   beforeEach(() => {
-    cy.uiLogin();
+    cy.loginUiSession();
   });
 
   describe('Cart functionality on Inventory page (add/delete) and cart badge behavior', () => {

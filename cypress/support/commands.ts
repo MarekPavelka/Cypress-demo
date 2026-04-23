@@ -5,7 +5,7 @@ import { UI_ROUTES } from '../support/ui/routes';
 
 const SESSION_LOGIN_COOKIE = 'session-username';
 
-Cypress.Commands.add('uiLogin', (): void => {
+Cypress.Commands.add('loginUiSession', (): void => {
   cy.session(
     'standard_user',
     () => {
@@ -26,7 +26,7 @@ Cypress.Commands.add('uiLogin', (): void => {
   cy.url().should('include', UI_ROUTES.inventory);
 });
 
-Cypress.Commands.add('uiLoginWithEnvCredentials', (): void => {
+Cypress.Commands.add('loginUiFresh', (): void => {
   const loginPage = new LoginPage();
   cy.env(['username', 'password']).then((credentials) => {
     const user = (credentials.username as string) ?? '';
@@ -40,8 +40,8 @@ Cypress.Commands.add('uiLoginWithEnvCredentials', (): void => {
 declare global {
   namespace Cypress {
     interface Chainable {
-      uiLogin(): void;
-      uiLoginWithEnvCredentials(): void;
+      loginUiSession(): void;
+      loginUiFresh(): void;
     }
   }
 }

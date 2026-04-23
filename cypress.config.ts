@@ -12,11 +12,6 @@ export default defineConfig({
   e2e: {
     baseUrl: 'https://www.saucedemo.com/',
     specPattern: [
-      'cypress/e2e/ui/1-login/**/*.spec.{js,ts}',
-      'cypress/e2e/ui/2-menu/**/*.spec.{js,ts}',
-      'cypress/e2e/ui/3-product/**/*.spec.{js,ts}',
-      'cypress/e2e/ui/4-cart/**/*.spec.{js,ts}',
-      'cypress/e2e/ui/5-checkout/**/*.spec.{js,ts}',
       'cypress/e2e/ui/**/*.spec.{js,ts}',
       'cypress/e2e/api/**/*.spec.{js,ts}',
     ],

@@ -21,7 +21,7 @@ describe('Checkout test suite', { tags: ['@ui'] }, () => {
   };
 
   beforeEach(() => {
-    cy.uiLogin();
+    cy.loginUiSession();
   });
 
   describe('Checkout step-one start', () => {

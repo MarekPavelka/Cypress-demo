@@ -84,12 +84,18 @@ describe('ReqRes API test suite', { tags: ['@api'] }, () => {
     it('API-POST-001: should create user from fixture and validate response status code and body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];
+      const requestStartTime = Date.now();
       httpClient.request(httpClient.method.POST, url, apiKey, userPayload).then((response) => {
         expect(response.status).to.eq(201);
         const body = expectSchema(usersSchemas.createUserResponseSchema, response.body, httpClient.requestLabel(httpClient.method.POST, url));
+        const parsedId = Number.parseInt(String(body.id));
+        const userCreatedAtTime = Date.parse(body.createdAt);
 
         expect(body.name).to.eq(userPayload.name);
         expect(body.job).to.eq(userPayload.job);
+        expect(Number.isInteger(parsedId)).to.eq(true);
+        expect(Number.isFinite(userCreatedAtTime)).to.eq(true);
+        expect(userCreatedAtTime >= requestStartTime).to.eq(true);
       });
     });
   });
@@ -121,7 +127,7 @@ describe('ReqRes API test suite', { tags: ['@api'] }, () => {
   });
 
   describe('Performance', { tags: ['@perf'] }, () => {
-    it('API-PERF-POST-001: should create user response under 1000ms', () => {
+    it('API-PERF-POST-001: should create user and return response within time threshold', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];
 
@@ -131,7 +137,7 @@ describe('ReqRes API test suite', { tags: ['@api'] }, () => {
       });
     });
 
-    it('API-PERF-PUT-001: should update user response under 1000ms', () => {
+    it('API-PERF-PUT-001: should update user and return response within time threshold', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
       const userPayload = testUsers[0];
 
@@ -141,7 +147,7 @@ describe('ReqRes API test suite', { tags: ['@api'] }, () => {
       });
     });
 
-    it('API-PERF-DEL-001: should delete user response under 1000ms', () => {
+    it('API-PERF-DEL-001: should delete user and return response within time threshold', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
 
       httpClient.request(httpClient.method.DELETE, url, apiKey).then((response) => {
