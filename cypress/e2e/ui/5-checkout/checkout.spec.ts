@@ -3,7 +3,7 @@
 import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 
-describe('Checkout test suite', { tags: '@ui' }, () => {
+describe('Checkout test suite', { tags: ['@ui'] }, () => {
   const headerPage = pom.getHeaderPage();
   const homePage = pom.getHomePage();
   const cartPage = pom.getCartPage();
@@ -25,7 +25,7 @@ describe('Checkout test suite', { tags: '@ui' }, () => {
   });
 
   describe('Checkout step-one start', () => {
-    it('CHK-001: should add product and start checkout', () => {
+    it('CHK-001: should add product and start checkout', { tags: ['@smoke'] }, () => {
       addProductsToCartAndStartCheckout(1);
     });
 
@@ -33,7 +33,7 @@ describe('Checkout test suite', { tags: '@ui' }, () => {
       addProductsToCartAndStartCheckout(2);
     });
 
-    it('CHK-003: should add product, start checkout and verify personal information form', () => {
+    it('CHK-003: should add product, start checkout and verify personal information form', { tags: ['@smoke'] }, () => {
       addProductsToCartAndStartCheckout(1);
       checkoutPage.verifyStepOneFormInputsAreVisible();
     });
@@ -75,7 +75,7 @@ describe('Checkout test suite', { tags: '@ui' }, () => {
       cy.url().should('include', UI_ROUTES.checkoutStepOne);
     });
 
-    it('CHK-008: should continue to step-two with valid personal information', () => {
+    it('CHK-008: should continue to step-two with valid personal information', { tags: ['@smoke'] }, () => {
       checkoutPage.fillStepOne(checkoutUser.firstName, checkoutUser.lastName, checkoutUser.postalCode);
       checkoutPage.submitStepOne();
       cy.url().should('include', UI_ROUTES.checkoutStepTwo);
@@ -107,7 +107,7 @@ describe('Checkout test suite', { tags: '@ui' }, () => {
   });
 
   describe('Checkout finish', () => {
-    it('CHK-013: should finish checkout and open the complete page', () => {
+    it('CHK-013: should finish checkout and open the complete page', { tags: ['@smoke'] }, () => {
       addProductsToCartAndStartCheckout(1);
       checkoutPage.fillStepOne(checkoutUser.firstName, checkoutUser.lastName, checkoutUser.postalCode);
       checkoutPage.submitStepOne();

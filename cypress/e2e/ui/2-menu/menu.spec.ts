@@ -3,7 +3,7 @@
 import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 
-describe('Menu test suite', { tags: '@ui' }, () => {
+describe('Menu test suite', { tags: ['@ui'] }, () => {
   const loginPage = pom.getLoginPage();
   const headerPage = pom.getHeaderPage();
   const homePage = pom.getHomePage();
@@ -12,7 +12,7 @@ describe('Menu test suite', { tags: '@ui' }, () => {
     cy.uiLogin();
   });
 
-  describe('Menu open/close and menu items availability', () => {
+  describe('Menu open/close and menu items availability', { tags: ['@smoke'] }, () => {
     it('MNU-001: should open the burger menu from the inventory page', () => {
       headerPage.openMenu();
       headerPage.getAllMenuAnchors().each(($a) => {
@@ -54,7 +54,7 @@ describe('Menu test suite', { tags: '@ui' }, () => {
     });
   });
 
-  describe('Menu item - Logout', () => {
+  describe('Menu item - Logout', { tags: ['@smoke'] }, () => {
     it('MNU-006: should log out and return to the login page', () => {
       headerPage.openMenu();
       headerPage.getMenuLogoutAnchor().click();

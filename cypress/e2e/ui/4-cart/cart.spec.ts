@@ -3,7 +3,7 @@
 import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 
-describe('Cart test suite', { tags: '@ui' }, () => {
+describe('Cart test suite', { tags: ['@ui'] }, () => {
   const headerPage = pom.getHeaderPage();
   const homePage = pom.getHomePage();
   const cartPage = pom.getCartPage();
@@ -13,11 +13,11 @@ describe('Cart test suite', { tags: '@ui' }, () => {
   });
 
   describe('Cart functionality on Inventory page (add/delete) and cart badge behavior', () => {
-    it('CRT-002: should not show the cart badge when the cart is empty', () => {
+    it('CRT-002: should not show the cart badge when the cart is empty', { tags: ['@smoke'] }, () => {
       headerPage.getCartBadge().should('not.exist');
     });
 
-    it('CRT-003: should add one product, show remove button and correct cart badge number', () => {
+    it('CRT-003: should add one product, show remove button and correct cart badge number', { tags: ['@smoke'] }, () => {
       homePage.addProductToCart(0);
       homePage.getProductRemoveFromCartButton(0).should('be.visible');
       headerPage.getCartBadge().should('be.visible').and('have.text', '1');
@@ -48,7 +48,7 @@ describe('Cart test suite', { tags: '@ui' }, () => {
   });
 
   describe('Cart functionality across pages (Inventory/Cart)', () => {
-    it('CRT-007: should add multiple products on inventory page and show added products on the cart page', () => {
+    it('CRT-007: should add multiple products on inventory page and show added products on the cart page', { tags: ['@smoke'] }, () => {
       homePage.addProductToCart(0);
       homePage.addProductToCart(1);
       headerPage.openCart();

@@ -3,7 +3,7 @@
 import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 
-describe('Login test suite', { tags: '@ui' }, () => {
+describe('Login test suite', { tags: ['@ui'] }, () => {
   const loginPage = pom.getLoginPage();
   const wrongUsername = 'wrong_user';
   const wrongPassword = 'wrong_password';
@@ -22,7 +22,7 @@ describe('Login test suite', { tags: '@ui' }, () => {
     cy.visit('/');
   });
 
-  describe('Login with valid credentials', () => {
+  describe('Login with valid credentials', { tags: ['@smoke'] }, () => {
     it('LGN-001: should show login form with username, password, and login button', () => {
       loginPage.getUsernameInput().should('be.visible');
       loginPage.getPasswordInput().should('be.visible');

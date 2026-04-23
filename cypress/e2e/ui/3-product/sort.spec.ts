@@ -4,14 +4,14 @@ import { pom } from '../../../support/ui/pageManager';
 import { UI_ROUTES } from '../../../support/ui/routes';
 import { InventorySortOption } from '../../../pages/home.page';
 
-describe('Product sorting test suite', { tags: '@ui' }, () => {
+describe('Product sorting test suite', { tags: ['@ui'] }, () => {
   const homePage = pom.getHomePage();
 
   beforeEach(() => {
     cy.uiLogin();
   });
 
-  describe('Sorting availability and default value', () => {
+  describe('Sorting availability and default value', { tags: ['@smoke'] }, () => {
     it('SRT-001: should show the product sort control', () => {
       homePage.getProductSortSelect().should('be.visible').and('be.enabled');
     });
@@ -25,7 +25,7 @@ describe('Product sorting test suite', { tags: '@ui' }, () => {
   });
 
   describe('Individual sorting functionality', () => {
-    it('SRT-003: should sort products by name ascending', () => {
+    it('SRT-003: should sort products by name ascending', { tags: ['@smoke'] }, () => {
       homePage.selectSort(InventorySortOption.AtoZ);
       homePage.expectProductNamesSortedAscending();
     });

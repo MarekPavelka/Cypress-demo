@@ -10,7 +10,7 @@ const MAX_RESPONSE_TIME_MS = 300;
 const FIRST_USER_ID = '1';
 let testUsers: { name: string; job: string }[] = [];
 
-describe('ReqRes API test suite', () => {
+describe('ReqRes API test suite', { tags: ['@api'] }, () => {
   const apiUrl = Cypress.expose('reqresApiUrl');
   let apiKey = '';
 
@@ -24,7 +24,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Get users', { tags: ['@api', '@smoke'] }, () => {
+  describe('Get users', { tags: ['@smoke'] }, () => {
     it('API-GET-001: should return users with valid structure and total number', () => {
       const usersUrl = `${apiUrl}${API_ENDPOINTS.users}`;
 
@@ -80,7 +80,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Create new user', { tags: ['@api', '@smoke'] }, () => {
+  describe('Create new user', { tags: ['@smoke'] }, () => {
     it('API-POST-001: should create user from fixture and validate response status code and body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];
@@ -94,7 +94,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Update existing user', { tags: ['@api', '@smoke'] }, () => {
+  describe('Update existing user', { tags: ['@smoke'] }, () => {
     it('API-PUT-001: should update existing user and validate response status code and body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
       const userPayload = testUsers[0];
@@ -109,7 +109,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Delete existing user', { tags: ['@api', '@smoke'] }, () => {
+  describe('Delete existing user', { tags: ['@smoke'] }, () => {
     it('API-DELETE-001: should delete user, validate response status code and empty body', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}${FIRST_USER_ID}`;
 
@@ -120,7 +120,7 @@ describe('ReqRes API test suite', () => {
     });
   });
 
-  describe('Performance', { tags: ['@api', '@perf'] }, () => {
+  describe('Performance', { tags: ['@perf'] }, () => {
     it('API-PERF-POST-001: should create user response under 1000ms', () => {
       const url = `${apiUrl}${API_ENDPOINTS.users}`;
       const userPayload = testUsers[0];

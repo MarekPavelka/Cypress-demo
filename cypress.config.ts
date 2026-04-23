@@ -27,6 +27,7 @@ export default defineConfig({
       config.env.username = process.env.USER_NAME;
       config.env.password = process.env.PASSWORD;
       config.env.reqresApiKey = process.env.REQRES_API_KEY;
+
       return config;
     },
   },
