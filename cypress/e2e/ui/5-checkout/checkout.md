@@ -2,7 +2,7 @@
 
 SUT: `https://www.saucedemo.com/`
 Page object: `cypress/pages/checkout.page.ts`  
-Spec file: `cypress/e2e/5-checkout/checkout.spec.ts`
+Spec file: `cypress/e2e/ui/5-checkout/checkout.spec.ts`
 
 ---
 

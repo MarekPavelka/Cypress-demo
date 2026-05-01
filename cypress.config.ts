@@ -6,6 +6,10 @@ export default defineConfig({
   viewportHeight: 720,
   video: false,
   screenshotOnRunFailure: false,
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+    configFile: 'reporter-config.json'
+  },
   expose: {
     reqresApiUrl: 'https://reqres.in/api',
   },

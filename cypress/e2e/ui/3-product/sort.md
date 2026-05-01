@@ -2,7 +2,7 @@
 
 SUT: `https://www.saucedemo.com/`
 Page object: `cypress/pages/home.page.ts`  
-Spec file: `cypress/e2e/3-product-sort/product-sort.spec.ts`
+Spec file: `cypress/e2e/ui/3-product-sort/product-sort.spec.ts`
 
 ---
 

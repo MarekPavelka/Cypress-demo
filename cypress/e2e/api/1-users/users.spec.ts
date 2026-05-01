@@ -7,6 +7,7 @@ import * as usersSchemas from './users.schemas';
 
 const USERS_FIXTURE = 'api-users.json';
 const MAX_RESPONSE_TIME_MS = 300;
+const MAX_SERVER_CLOCK_SKEW_MS = 5000;
 const FIRST_USER_ID = '1';
 let testUsers: { name: string; job: string }[] = [];
 
@@ -95,7 +96,7 @@ describe('ReqRes API test suite', { tags: ['@api'] }, () => {
         expect(body.job).to.eq(userPayload.job);
         expect(Number.isInteger(parsedId)).to.eq(true);
         expect(Number.isFinite(userCreatedAtTime)).to.eq(true);
-        expect(userCreatedAtTime >= requestStartTime).to.eq(true);
+        expect(userCreatedAtTime >= requestStartTime - MAX_SERVER_CLOCK_SKEW_MS).to.eq(true);
       });
     });
   });

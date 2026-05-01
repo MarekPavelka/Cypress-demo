@@ -2,7 +2,7 @@
 
 SUT: `https://www.saucedemo.com/`  
 Page object: `cypress/pages/login.page.ts`  
-Spec file: `cypress/e2e/1-login/login.spec.ts`
+Spec file: `cypress/e2e/ui/1-login/login.spec.ts`
 
 ---
 

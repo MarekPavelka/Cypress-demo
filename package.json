@@ -1,11 +1,19 @@
 {
   "name": "cypress-demo",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "delete:reports": "rimraf cypress/test-results",
+    "prereport": "npm run delete:reports",
+    "junit:merge": "npx junit-merge -d cypress/test-results -o cypress/test-results/results.xml",
+    "cy:run": "node -e \"require('child_process').spawnSync('npx', ['cypress', 'run'], { stdio: 'inherit', shell: true })\"",
+    "cy:all": "npm run prereport && npm run cy:run && npm run junit:merge"
   },
   "devDependencies": {
     "@cypress/grep": "^6.0.0",
     "cypress": "^15.14.0",
+    "cypress-multi-reporters": "^2.0.5",
+    "junit-merge": "^2.0.0",
+    "mocha-junit-reporter": "^2.2.1",
+    "rimraf": "^6.1.3",
     "typescript": "^5.9.3",
     "zod": "^4.3.6"
   }

@@ -2,7 +2,7 @@
 
 SUT: `https://www.saucedemo.com/`
 Page object: `cypress/pages/cart.page.ts`  
-Spec file: `cypress/e2e/4-cart/cart.spec.ts`
+Spec file: `cypress/e2e/ui/4-cart/cart.spec.ts`
 
 ---
 

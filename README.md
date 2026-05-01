@@ -7,7 +7,7 @@ This repository is a Cypress test automation project covering end-to-end scenari
 - **UI** – [Sauce Demo](https://www.saucedemo.com/)
 - **API** – [ReqRes](https://reqres.in/)
 
-It demonstrates a practical TypeScript + Cypress setup with Page Object Model structure, schema validation, tag filtering, process environment variables, and session-cached login.
+It demonstrates a practical TypeScript + Cypress setup with Page Object Model structure, schema validation, tag filtering, xml test reports, process environment variables and session-cached login.
 
 ---
 
@@ -17,6 +17,9 @@ It demonstrates a practical TypeScript + Cypress setup with Page Object Model st
 - TypeScript
 - [zod](https://www.npmjs.com/package/zod) (API response schemas)
 - [@cypress/grep](https://www.npmjs.com/package/@cypress/grep) (tag filters)
+- [cypress-multi-reporters](https://www.npmjs.com/package/cypress-multi-reporters) + [mocha-junit-reporter](https://www.npmjs.com/package/mocha-junit-reporter) (JUnit XML alongside default terminal output)
+- [junit-merge](https://www.npmjs.com/package/junit-merge) (combine per spec XML into one file)
+- [rimraf](https://www.npmjs.com/package/rimraf) (cross-platform `rm -rf` equivalent, cleans the report folder on Windows, macOS, and Linux without shell specific commands)
 
 ---
 
@@ -60,6 +63,8 @@ cypress/
     shared/               # shared helpers with no cy dependency
     commands.ts           # custom commands (e.g. ui login)
     e2e.ts                # loads @cypress/grep + commands
+  test-results/           # JUnit XML (gitignored); created when running headless with reporters
+reporter-config.json      # multi-reporter: spec + mocha-junit-reporter
 cypress.config.ts         # main config
 ```
 
@@ -156,6 +161,29 @@ npx cypress run --env grepTags='@api'
 # API performance tests
 npx cypress run --env grepTags='@api+@perf'
 ```
+
+---
+
+## JUnit XML reports
+
+Headless runs use multiple reporters, so you keep the default **spec** reporter in the terminal and also get **JUnit XML** files for CI or dashboards.
+
+Reporter wiring: `cypress.config.ts` → `cypress-multi-reporters` → `reporter-config.json`<br>
+Per-spec XML: `cypress/test-results/results-[hash].xml`<br>
+Merged XML: `cypress/test-results/results.xml` (after the merge script)
+
+The `test-results` folder is listed in `.gitignore`.
+
+**Scripts**
+
+| Script                                | Purpose                                                                                          |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| <code>npm&nbsp;run&nbsp;cy:run</code> | Headless Cypress via Node (`spawnSync`), same reporters as `npx cypress run` (spec + JUnit XML). |
+| <code>npm&nbsp;run&nbsp;cy:all</code> | Cleans XML (`rimraf`), runs `cy:run`, merges `results-*.xml` into `results.xml`.                 |
+
+`cy:run` avoids shell-specific `npx` quirks so one npm script works on Windows and Unix. The wrapper does **not** forward Cypress’s exit code, so `cy:all` still runs `junit:merge` after a failing run and merged XML remains available.
+
+Use `npm run cy:all` when you want a clean folder and a single merged XML artifact. For CI jobs that must fail when tests fail, rely on spec reporter output or the JUnit XML.
 
 ---
 
