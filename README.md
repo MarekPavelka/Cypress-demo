@@ -61,10 +61,10 @@ cypress/
     api/                  # api helpers
     ui/                   # ui helpers
     shared/               # shared helpers with no cy dependency
-    commands.ts           # custom commands (e.g. ui login)
+    commands.ts           # custom commands (e.g. login)
     e2e.ts                # loads @cypress/grep + commands
-  test-results/           # JUnit XML (gitignored); created when running headless with reporters
-reporter-config.json      # multi-reporter: spec + mocha-junit-reporter
+  test-results/           # created when running headless (gitignored)
+reporter-config.json      # reporter config (spec + mocha-junit-reporter)
 cypress.config.ts         # main config
 ```
 
